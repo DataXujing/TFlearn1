@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Xujing">
+  <link rel="shortcut icon" href="../inter.ico">
+  
+  <title>TensorFlow入门 - Inter-credit:TensorFlow培训</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "TensorFlow\u5165\u95e8";
+    var mkdocs_page_input_path = "chapter3.md";
+    var mkdocs_page_url = "/chapter3/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Inter-credit:TensorFlow培训</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">主页</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter1/">TensorFlow培训内容</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter2/">TensorFlow环境搭建</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">TensorFlow入门</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#tf">TF入门</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#1-tf-">1. TF计算模型--计算图</a></li>
+        
+            <li><a class="toctree-l3" href="#2-tf-">2. TF数据模型--张量</a></li>
+        
+            <li><a class="toctree-l3" href="#3-tf-">3. TF运行模型--会话</a></li>
+        
+            <li><a class="toctree-l3" href="#4-tf">4. TF游乐场</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter4/">TensorFlow实现机器学习举例</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter5/">TensorFlow实现神经网络举例</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter6/">TensorFlow实现CNN举例</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter7/">TensorFlow实现RNN举例</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter8/">TensorFlow学习资源推荐</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">关于</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Inter-credit:TensorFlow培训</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>TensorFlow入门</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/DataXujing/TFlearn1/edit/master/docs/chapter3.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="tf">TF入门</h2>
+<p>关于tf中的函数，在这里不会讲很多，自己用到去学习，并且有些函数更新比较快会替换成别的函数名。</p>
+<h3 id="1-tf-">1. TF计算模型--计算图</h3>
+<h4 id="i">I 计算图的概念</h4>
+<p>TensorFlow名字就说明了他最重要的两个概念--Tensor和Flow.Tensor就是张量（可理解为多为数组），Flow(流)，直观的展现了张量之间通过计算相互转化的过程。TF是通过计算图的形式展现计算的编程系统，TensorFlow中的每一个计算都是计算图上的一个节点，而几点之间边描述了计算之间的依赖关系</p>
+<p><img alt="计算图" src="../img/cmputeGraph.png" />
+<strong>图1：通过TensorBoard可视化的神经元图</strong></p>
+<h4 id="ii">II 计算图的使用</h4>
+<p>TensorFlow程序一般可以分为两个阶段，第一个阶段一般定义计算图中的所有计算，比如在验证TF安装成功的代码中，先定义了两个输入，然后计算了一个计算得到他们的和。第二个阶段为执行计算（第3节介绍），定义阶段的样例：</p>
+<pre><code class="python">import tensorflow as tf
+
+a = tf.constant([1.0,2.0],name='a')
+b = tf.constant([2/0,3.0],name='b')
+
+result = a + b
+</code></pre>
+
+<p>在这个过程中，tf会自动将定义的计算转化为计算图上的节点，在TF中系统会自动维护一个默认的计算图，通过tf.get_default_graph函数可以获得当前默认的计算图</p>
+<pre><code class="python">#通过a.graph可以查看张量所在的计算图
+print(a.graph is tf.get_default_graph())
+</code></pre>
+
+<p>当然除了默认的计算图，TF支持通过tf.graph函数来生成新的计算图。不同计算图的张量和运算都不会共享</p>
+<pre><code class="python">import tensorflow as tf
+
+g1 = tf.Graph()
+with g1.as_default():
+    #在计算图g1中定义变量v
+    v = tf.get_variable('v',initializer=tf.zero_initializer(shape=[1]))
+
+g2 = tf.Graph()
+with g2.as_default()
+    #g2中定义v
+    v = tf.get_variable('v',initializer=tf.ones_initializer(shape=[1]))
+
+#g1中读取v
+with tf.Session(graph=1) as sess:
+    initialize_op = tf.global_variables_initializer ()
+    sess.run(initialize_op)
+    with tf.variable_scope(&quot;&quot;,reuse=True):
+        print(sess.run(tf.get_variable('v')))
+
+</code></pre>
+
+<p>TF中的计算图不仅可以用来隔离张量和计算。还提供了管理张量和计算的机制，计算图可以通过tf.Graph.device函数来指定运算计算的设备，这位TF使用GPU提供机制。下面的程序将加法跑在GPU上</p>
+<pre><code class="python">g = tf.Graph()
+#指定计算运行的设备
+with g.device('/gpu:0'):
+    result = a + b
+</code></pre>
+
+<p>此外有效的整理TF程序中的资源也是计算图中的一个重要功能。在一个计算图中，可以通过集合（collection)来管理不同类别的资源。比如可以通过tf.add_to_collection函数可以将资源加入一个或多个集合，然后通过tf.get_collection获取一个集合里的所有资源。这里的资源可以是张量，变量，程序队列，等等。</p>
+<hr />
+<h3 id="2-tf-">2. TF数据模型--张量</h3>
+<p>张量是TF中管理数据的形式，TF中所有的数据都是通过张量的形式来表示的，功能上可以把张量理解为多维数组，零阶张量就是一个数，一阶张量是向量（1D数组）,n阶张量可以理解为nD数组。TF中并不是采用这种数组的形式，它只是对运算结果的引用，在张量中并没有保存数字，它保存的是如何得到这些数字的计算过程。</p>
+<pre><code class="python">import tensorflow as tf
+#tf.constant是一个计算，这个计算的结果保存为一个张量，保存在变量a中
+
+a = tf.constant([1.,2.],name='a')
+b = tf.constant([2.,3.],name='b')
+
+result = a + b
+
+print(result)
+
+#输出结果：
+
+Tensor('add:0',shape=(2,),dtype=float32)
+</code></pre>
+
+<p>从结果可以看出，TF和Numpy不同，TF计算的结果不是一个具体的数，而是一个张量结构，一个张量中主要的结构有：名字，维度，类型。</p>
+<ul>
+<li>
+<p>名字(name)： 是张量的唯一标识，同时给出这个张量是如何计算出来的，张量和计算图节点所计算的结果是对应的，名字格式为，<strong>节点名称：张量来自节点的第介个输出</strong> ，add:0表示add节点的输出的第一个结果</p>
+</li>
+<li>
+<p>维度(shape): 描述了张量的维度信息，shape=(2,)表示张量是一个1D数组，数组的长度是2，维度是张量很重要的一个概念（一定要注意）</p>
+</li>
+<li>
+<p>类型(type): 每一个张量都有一个唯一类型，自动进行类型检查，不匹配会报错的</p>
+</li>
+</ul>
+<pre><code class="python">import tensorflow as tf
+a = tf.constant([1,2],name='a')
+#a = tf.constant([1,2],name='a'，dtype=tf.float32)
+b = tf.constant([2.,3.],name='b')
+
+result = a + b
+#结果会报错。。。。。。
+</code></pre>
+
+<p>注意1： TF支持14种不同的数据类型（tf.float32,tf.float64,tf.int8,tf.int16,tf.int32,tf.int64,tf.unit8,tf.bool,tf.complex64,tf.complex128)</p>
+<p>注意2： 张量的使用方式，a.对中间计算结果的引用（如上栗）b.计算图构造完成后，张量可以获得计算结果，即得到真实数字，虽然张量本身没有存储具体数字，通过会话(session)即可得到</p>
+<pre><code class="python">tf.Session().run(result)
+</code></pre>
+
+<hr />
+<h3 id="3-tf-">3. TF运行模型--会话</h3>
+<p>TF通过会话(Session)来执行定义好的运算。会话拥有并管理TF程序运行的所有资源，当所有计算完成后关闭会话帮助系统回收资源，一般由两种使用方式</p>
+<pre><code class="python">#创建一个会话
+sess = tf.Session()
+#使用创建好的会话来得到自己关心的计算结果
+sess.run(...)
+#关闭会话使得本次运行中使用的资源可以被释放
+sess.close()
+#很像我们Python中的I/O系统
+</code></pre>
+
+<p>这种方法不好，原因是当程序出现异常导致退出时，关闭会话可能不会被执行，会导致资源泄露。为了解决这个问题TF可以通过Python的上下文管理器来使用会话</p>
+<pre><code class="python">#通过Py的上下文管理器来创建
+with tf.Session() as sess:
+    sess.run(...)
+#不需要close()当退出上下文管理器时资源会被自动释放
+</code></pre>
+
+<p>上文中介绍了TF会自动生成一个默认的计算图，如果计算图没有被指定运算会自动加入到默认计算图中，TF的会话也有类似的机制，但TF不会生成默认会话，需要手动指定，默认会话指定后可以通过tf.Tensr.eval函数来计算一个张量的取值</p>
+<pre><code class="python">sess = tf.session()
+with sess.as_default():
+    print(result.eval())
+    print(sess.run(result))
+</code></pre>
+
+<p>而在一些交互的脚本环境中(Ipython,jupyter),通过这种默认方式来获取张量的取值会更方便，所以TF提供了一种在交互环境下直接构建默认会话的函数：tf.InteractiveSession()</p>
+<pre><code class="python">sess = tf.InteractiveSession()
+print(result.eval())
+sess.close()
+</code></pre>
+
+<p>注意：无论使用哪种方法都可以通过ConfigProto Protocol Buffer来配置需要生成的会话</p>
+<pre><code class="python">config = tf.ConfigProto(all_solft_placement = True,log_device_placement=True)
+#all_solft_placement GPU 自动跳转CPU
+#log_device_placement=True 日志中记录每个节点计算被安排在哪个设备
+sess1 = tf.InteractiveSession(config = config)
+sess2 = tf.Session(config = config)
+</code></pre>
+
+<hr />
+<h3 id="4-tf">4. TF游乐场</h3>
+<p>TensorFlow游乐场(http://playground.tensorflow.org)是通过网页浏览器可以训练简单神经网络的可视化工具</p>
+<p><img alt="tfplay" src="../img/tfplay.png" />
+<strong>图2：TensorFlow游乐场截图</strong></p>
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../chapter4/" class="btn btn-neutral float-right" title="TensorFlow实现机器学习举例">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../chapter2/" class="btn btn-neutral" title="TensorFlow环境搭建"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/DataXujing/TFlearn1/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../chapter2/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../chapter4/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>

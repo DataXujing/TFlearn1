@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <meta name="author" content="Xujing">
+  <link rel="shortcut icon" href="../inter.ico">
+  
+  <title>TensorFlow环境搭建 - Inter-credit:TensorFlow培训</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="../css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="../css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "TensorFlow\u73af\u5883\u642d\u5efa";
+    var mkdocs_page_input_path = "chapter2.md";
+    var mkdocs_page_url = "/chapter2/";
+  </script>
+  
+  <script src="../js/jquery-2.1.1.min.js"></script>
+  <script src="../js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="../js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href=".." class="icon icon-home"> Inter-credit:TensorFlow培训</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="..">主页</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter1/">TensorFlow培训内容</a>
+	    </li>
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="./">TensorFlow环境搭建</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#tf">TF环境搭建</a></li>
+    
+
+    </ul>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter3/">TensorFlow入门</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter4/">TensorFlow实现机器学习举例</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter5/">TensorFlow实现神经网络举例</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter6/">TensorFlow实现CNN举例</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter7/">TensorFlow实现RNN举例</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../chapter8/">TensorFlow学习资源推荐</a>
+	    </li>
+          
+            <li class="toctree-l1">
+		
+    <a class="" href="../about/">关于</a>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="..">Inter-credit:TensorFlow培训</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="..">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>TensorFlow环境搭建</li>
+    <li class="wy-breadcrumbs-aside">
+      
+        <a href="https://github.com/DataXujing/TFlearn1/edit/master/docs/chapter2.md"
+          class="icon icon-github"> Edit on GitHub</a>
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <h2 id="tf">TF环境搭建</h2>
+<p>1.TF主要依赖的包</p>
+<p><strong>Protocol Buffer</strong></p>
+<p>是谷歌开发的处理结构化数据的工具，Protocol Buffer序列化（将结构化的数据变成数据流的格式，白话就是变成一个字符串）后得到的数据是不可读的字符串，而是二进制流。如何从结构化的数据序列化，从序列化之后的数据流中还原原来的数据结构，这是Protocol Buffer解决的主要问题。是Tensorflow系统用到的重要工具。</p>
+<p><strong>Bazel</strong></p>
+<p>Bazel是从谷歌开源的自动化构建工具，谷歌内部大部分的应用都是通过它来<strong>编译</strong>的，Tensorflow也是通过Bazel编译的。</p>
+<p>2.TF安装</p>
+<p>TensorFlow提供了多种不同的安装方式，我们主要介绍通过Docker安装，通过Pip安装及从源码安装。</p>
+<p><strong>Docker安装</strong></p>
+<p>Docker是新一代的虚拟化技术，可以将TF及TF的所有依赖关系封装大Docker镜像中，大大简化安装过程（我的Tensorflow就是通过Docker安装的，当时Tensorflow还不能很好的支持Windows)。那首先需要安装Docker(Docker的安装和使用不是本节的重点)，安装好后使用一个打包好的Docker镜像，TensorFlow官方提供了多个Docker镜像，国内的（eg才云科技）也提供了相关的镜像</p>
+<pre><code>docker run -it -p 8888:8888 -p 6006:6006
+#启动一个TensorFlow容器
+</code></pre>
+
+<p><strong>Pip安装</strong></p>
+<p>前期时pip在Windows下是无法安装的，现在可以在python3的环境下直接`pip install tensorflow**即可完成安装。极力推荐这种安装方式</p>
+<p><strong>源码编译安装</strong></p>
+<p>这种安装方式不建议大家采用，因为TensorFlow依赖于其他包，你需要提前把其他依赖包安装好之后才可正常通过源码安装TF。</p>
+<p>安装好后测试一下你的TensorFlow能否正常使用,如果正常使用，恭喜你安装成功。</p>
+<pre><code class="python">import tensorflow as tf
+a = tf.constant([1.0,2.0],name='a')
+b = tf.constant([2.0,3.0],name='b')
+result =a + b
+
+sess = tf.session()
+sess.run(result)
+sess.close()
+</code></pre>
+
+<hr />
+              
+            </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../chapter3/" class="btn btn-neutral float-right" title="TensorFlow入门">Next <span class="icon icon-circle-arrow-right"></span></a>
+      
+      
+        <a href="../chapter1/" class="btn btn-neutral" title="TensorFlow培训内容"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+          <a href="https://github.com/DataXujing/TFlearn1/" class="fa fa-github" style="float: left; color: #fcfcfc"> GitHub</a>
+      
+      
+        <span><a href="../chapter1/" style="color: #fcfcfc;">&laquo; Previous</a></span>
+      
+      
+        <span style="margin-left: 15px"><a href="../chapter3/" style="color: #fcfcfc">Next &raquo;</a></span>
+      
+    </span>
+</div>
+    <script>var base_url = '..';</script>
+    <script src="../js/theme.js"></script>
+      <script src="../search/require.js"></script>
+      <script src="../search/search.js"></script>
+
+</body>
+</html>

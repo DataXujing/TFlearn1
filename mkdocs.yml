@@ -1,0 +1,17 @@
+site_name: Inter-credit:TensorFlow
+site_author: Xujing
+site_favicon: inter1.ico
+repo_url: https://github.com/DataXujing/TFlearn1/
+pages:
+  - 主页: index.md
+  - TensorFlow培训内容: chapter1.md
+  - TensorFlow环境搭建: chapter2.md
+  - TensorFlow入门: chapter3.md
+  - TensorFlow实现机器学习举例: chapter4.md
+  - TensorFlow实现神经网络举例: chapter5.md
+  - TensorFlow实现CNN举例: chapter6.md
+  - TensorFlow实现RNN举例: chapter7.md
+  - TensorBoard可视化: chapter9.md
+  - TensorFlow学习资源推荐: chapter10.md
+  - 关于: about.md
+theme: readthedocs
